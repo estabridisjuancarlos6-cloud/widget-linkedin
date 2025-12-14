@@ -76,7 +76,7 @@
       display: flex;
       align-items: flex-start;
       max-height: 40%;
-      margin-top: 4%;
+      margin-top: 2%;
     }
 
     .feed-image {
@@ -150,7 +150,7 @@
 <body>
   <div id="feed" class="feed-container visible">
     <div class="feed-text">
-      <p>Conoce qué novedades tenemos en:</p>
+      <p>Novedades en:</p>
       <img class="img-ig" src="img/linkedin_logo.png" alt="LinkedIn">
       <div class="caption">Cargando publicación...</div>
     </div>
@@ -160,7 +160,7 @@
   </div>
 
   <script>
-    const FEED_URL = "https://rss.app/feeds/v1.1/tDyTLTFJ1dbQW02r.json";
+    const FEED_URL = "https://rss.app/feeds/v1.1/SJgsrCAAn792QIyb.json";
     let currentIndex = 0, posts = [];
 
     async function cargarFeed() {
@@ -201,5 +201,3 @@
   </script>
 </body>
 </html>
-
-
