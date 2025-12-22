@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -30,7 +31,8 @@
     .feed-container {
       display: flex;
       flex-direction: row;
-      align-items: flex-start; /* 👈 ahora arriba */
+      align-items: flex-start;
+      /* 👈 ahora arriba */
       justify-content: space-between;
       border-radius: 1vw;
       box-shadow: 0 0.4vw 1vw rgba(0, 0, 0, 0.1);
@@ -46,8 +48,10 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      align-items: flex-start; /* 👈 alinear arriba */
-      justify-content: flex-start; /* 👈 anclar arriba */
+      align-items: flex-start;
+      /* 👈 alinear arriba */
+      justify-content: flex-start;
+      /* 👈 anclar arriba */
       height: 100%;
       position: relative;
     }
@@ -72,7 +76,8 @@
       font-size: clamp(14px, 1.5vw, 22px);
       color: #333;
       overflow: hidden;
-      flex-grow: 1; /* 👈 deja que crezca el texto sin mover el título */
+      flex-grow: 1;
+      /* 👈 deja que crezca el texto sin mover el título */
       display: flex;
       align-items: flex-start;
       max-height: 40%;
@@ -83,7 +88,8 @@
       flex: 0.9;
       display: flex;
       justify-content: center;
-      align-items: flex-start; /* 👈 alinear con la parte superior */
+      align-items: flex-start;
+      /* 👈 alinear con la parte superior */
       padding: 2%;
       box-sizing: border-box;
     }
@@ -174,22 +180,34 @@
     }
 
     function mostrarPost() {
-      if (posts.length === 0) return;
+      if (!posts.length) return;
+
       const post = posts[currentIndex];
       const captionElement = document.querySelector(".caption");
       const imgElement = document.querySelector(".feed-image img");
+
       const tempDiv = document.createElement("div");
       tempDiv.innerHTML = post.content_html;
-      const text = tempDiv.innerText || "";
+
+      // ✅ PRIMER PÁRRAFO REAL (LinkedIn + RSS App)
+      const fullText = tempDiv.innerText || "";
+      const text = fullText
+        .split(/\n\s*\n/)
+        .shift()
+        .trim();
+
       const imgTag = tempDiv.querySelector("img");
       const imgSrc = imgTag ? imgTag.src : "";
+
       const feedContainer = document.getElementById("feed");
       feedContainer.classList.remove("visible");
       feedContainer.classList.add("fade");
 
       setTimeout(() => {
-        captionElement.innerText = text.trim().substring(0, 400);
-        imgElement.src = `https://images.weserv.nl/?url=${encodeURIComponent(imgSrc)}`;
+        captionElement.innerText = text;
+        imgElement.src = imgSrc
+          ? `https://images.weserv.nl/?url=${encodeURIComponent(imgSrc)}`
+          : "";
         feedContainer.classList.remove("fade");
         feedContainer.classList.add("visible");
       }, 800);
@@ -200,5 +218,5 @@
     cargarFeed();
   </script>
 </body>
-</html>
 
+</html>
